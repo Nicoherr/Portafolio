@@ -7,7 +7,7 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 /* ==========================================
    MENÚ DE NAVEGACIÓN (Requerido por la guía)
    Fondo azul y enlaces blancos
@@ -17,18 +17,18 @@ nav {
     padding: 15px;
     text-align: center;
 }
-
+ 
 nav a {
     color: #ffffff;
     text-decoration: none;
     margin: 0 10px;
     font-weight: bold;
 }
-
+ 
 nav a:hover {
     text-decoration: underline;
 }
-
+ 
 /* ==========================================
    EXTRACTO / RESUMEN DE LA EMPRESA
    Centrado según requerimiento
@@ -39,7 +39,7 @@ section.extracto, .extracto p {
     margin: 20px auto;
     padding: 0 15px;
 }
-
+ 
 /* ==========================================
    PIE DE PÁGINA (Requerido por la guía)
    Fondo negro y texto blanco
@@ -51,11 +51,11 @@ footer {
     padding: 15px;
     margin-top: 30px;
 }
-
+ 
 /* ==========================================
    RESPONSIVIDAD (Media Queries para 3 dispositivos)
    ========================================== */
-
+ 
 /* Celular (pantallas hasta 600px) */
 @media screen and (max-width: 600px) {
     nav a {
@@ -67,14 +67,14 @@ footer {
         padding: 10px;
     }
 }
-
+ 
 /* Tablet (pantallas entre 601px y 900px) */
 @media screen and (min-width: 601px) and (max-width: 900px) {
     main {
         padding: 20px;
     }
 }
-
+ 
 /* Escritorio (pantallas de más de 900px) */
 @media screen and (min-width: 901px) {
     main {
@@ -82,4 +82,45 @@ footer {
         margin: 0 auto;
         padding: 30px;
     }
+}
+ 
+/* ==========================================
+   MODO OSCURO
+   Se activa agregando la clase "dark-mode" al <body>
+   mediante el botón del navbar (ver assets/main.js)
+   ========================================== */
+body.dark-mode {
+    background-color: #121212;
+    color: #e8e8e8;
+}
+ 
+body.dark-mode .extracto p {
+    color: #cfcfcf !important;
+}
+ 
+body.dark-mode h2 {
+    border-color: #444 !important;
+}
+ 
+body.dark-mode .text-muted {
+    color: #a5a5a5 !important;
+}
+ 
+body.dark-mode .form-control {
+    background-color: #1e1e1e;
+    color: #e8e8e8;
+    border-color: #444;
+}
+ 
+body.dark-mode .form-control:focus {
+    background-color: #1e1e1e;
+    color: #e8e8e8;
+}
+ 
+body.dark-mode .form-label {
+    color: #e8e8e8;
+}
+ 
+body.dark-mode a {
+    color: #8ab4f8;
 }
