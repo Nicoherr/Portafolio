@@ -1,31 +1,96 @@
 export default function Contacto() {
   return (
-    <main className="max-w-2xl mx-auto p-8">
-      <h2 className="text-3xl font-bold mb-6">Contacto</h2>
+    // Contenedor centrado para el formulario de contacto
+    <div className="max-w-3xl mx-auto px-6 py-12 space-y-10">
       
-      <div className="space-y-2 mb-8 bg-gray-50 p-4 rounded-md border border-gray-200">
-        <p><strong>Email:</strong> <a href="mailto:nicolaslabraa@gmail.com" className="text-blue-600 hover:underline">nicolaslabraa@gmail.com</a></p>
-        <p><strong>Teléfono:</strong> <a href="tel:+56944628371" className="text-blue-600 hover:underline">+56 9 4462 8371</a></p>
+      {/* Encabezado */}
+      <div>
+        <h1 className="text-3xl font-extrabold text-white">Contacto</h1>
+        <p className="text-zinc-400 mt-2">
+          ¿Tienes alguna consulta o propuesta de proyecto? No dudes en escribirme.
+        </p>
       </div>
 
-      <h3 className="text-xl font-semibold mb-4">Envíame un mensaje</h3>
-      <form className="space-y-4">
+      {/* Tarjeta de información directa (Email, teléfono, ubicación) */}
+      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 grid sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium mb-1">Nombre</label>
-          <input type="text" className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <span className="text-xs uppercase font-semibold text-zinc-500 tracking-wider">
+            Correo Electrónico
+          </span>
+          <a 
+            href="mailto:nicolaslabraa@gmail.com" 
+            className="block text-white font-medium hover:text-zinc-300 transition-colors mt-1"
+          >
+            nicolaslabraa@gmail.com
+          </a>
         </div>
+
         <div>
-          <label className="block text-sm font-medium mb-1">Correo electrónico</label>
-          <input type="email" className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <span className="text-xs uppercase font-semibold text-zinc-500 tracking-wider">
+            Ubicación & Teléfono
+          </span>
+          <p className="text-white font-medium mt-1">
+            +56 9 4462 8371
+          </p>
+          <p className="text-xs text-zinc-400">Ñuñoa, Santiago</p>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Mensaje</label>
-          <textarea rows="4" className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+      </div>
+
+      {/* Formulario de envío de mensajes */}
+      <form 
+        onSubmit={(e) => e.preventDefault()} 
+        className="space-y-6 bg-zinc-900 border border-zinc-800 p-8 rounded-xl"
+      >
+        <h2 className="text-xl font-bold text-white">Envíame un mensaje</h2>
+
+        {/* Campo: Nombre */}
+        <div className="space-y-2">
+          <label htmlFor="nombre" className="block text-sm font-medium text-zinc-300">
+            Nombre
+          </label>
+          <input
+            type="text"
+            id="nombre"
+            placeholder="Tu nombre"
+            // Fondo negro (bg-black), texto blanco, bordes y placeholders con estilo zinc
+            className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+          />
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-          Enviar
+
+        {/* Campo: Correo */}
+        <div className="space-y-2">
+          <label htmlFor="email" className="block text-sm font-medium text-zinc-300">
+            Correo electrónico
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="tu@email.com"
+            className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+          />
+        </div>
+
+        {/* Campo: Mensaje largo (Textarea) */}
+        <div className="space-y-2">
+          <label htmlFor="mensaje" className="block text-sm font-medium text-zinc-300">
+            Mensaje
+          </label>
+          <textarea
+            id="mensaje"
+            rows={5}
+            placeholder="¿En qué te puedo ayudar?"
+            className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors resize-none"
+          />
+        </div>
+
+        {/* Botón de envío blanco con contraste */}
+        <button
+          type="submit"
+          className="w-full sm:w-auto bg-white text-black font-semibold px-8 py-3 rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer"
+        >
+          Enviar mensaje
         </button>
       </form>
-    </main>
+    </div>
   )
 }
