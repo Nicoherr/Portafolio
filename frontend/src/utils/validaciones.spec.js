@@ -8,6 +8,7 @@ describe('Pruebas de utilidades - validaciones', () => {
 
   it('debe validar el formato de un correo electrónico', () => {
     expect(esEmailValido('usuario@dominio.com')).toBe(true)
+    expect(esEmailValido(' usuario@dominio.com ')).toBe(true)
     expect(esEmailValido('correo-invalido')).toBe(false)
   })
 })

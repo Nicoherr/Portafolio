@@ -1,4 +1,57 @@
+import { useState } from 'react'
+import { esEmailValido, esTextoValido } from '../utils/validaciones.js'
+
+const API_URL = import.meta.env.VITE_API_URL || ''
+
 export default function Contacto() {
+  const [isSending, setIsSending] = useState(false)
+  const [feedback, setFeedback] = useState(null)
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const contact = {
+      name: String(formData.get('name') ?? ''),
+      email: String(formData.get('email') ?? '').trim(),
+      message: String(formData.get('message') ?? ''),
+      website: String(formData.get('website') ?? ''),
+    }
+
+    if (!esTextoValido(contact.name) || !esEmailValido(contact.email) || !esTextoValido(contact.message)) {
+      setFeedback({ type: 'error', text: 'Revisa tu nombre, correo electrónico y mensaje.' })
+      return
+    }
+
+    setIsSending(true)
+    setFeedback(null)
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contact),
+      })
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'No se pudo enviar el mensaje.')
+      }
+
+      form.reset()
+      setFeedback({ type: 'success', text: result.message })
+    } catch (error) {
+      setFeedback({
+        type: 'error',
+        text: error instanceof Error
+          ? error.message
+          : 'No se pudo conectar con el servidor. Inténtalo nuevamente.',
+      })
+    } finally {
+      setIsSending(false)
+    }
+  }
+
   return (
     // Contenedor centrado para el formulario de contacto
     <div className="max-w-3xl mx-auto px-6 py-12 space-y-10">
@@ -38,10 +91,15 @@ export default function Contacto() {
 
       {/* Formulario de envío de mensajes */}
       <form 
-        onSubmit={(e) => e.preventDefault()} 
+        onSubmit={handleSubmit}
         className="space-y-6 bg-zinc-900 border border-zinc-800 p-8 rounded-xl"
       >
         <h2 className="text-xl font-bold text-white">Envíame un mensaje</h2>
+
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="website">No rellenes este campo</label>
+          <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+        </div>
 
         {/* Campo: Nombre */}
         <div className="space-y-2">
@@ -51,7 +109,11 @@ export default function Contacto() {
           <input
             type="text"
             id="nombre"
+            name="name"
             placeholder="Tu nombre"
+            maxLength={100}
+            autoComplete="name"
+            required
             // Fondo negro (bg-black), texto blanco, bordes y placeholders con estilo zinc
             className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
           />
@@ -65,7 +127,11 @@ export default function Contacto() {
           <input
             type="email"
             id="email"
+            name="email"
             placeholder="tu@email.com"
+            maxLength={254}
+            autoComplete="email"
+            required
             className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
           />
         </div>
@@ -77,18 +143,31 @@ export default function Contacto() {
           </label>
           <textarea
             id="mensaje"
+            name="message"
             rows={5}
             placeholder="¿En qué te puedo ayudar?"
+            maxLength={5000}
+            required
             className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors resize-none"
           />
         </div>
 
         {/* Botón de envío blanco con contraste */}
+        {feedback && (
+          <p
+            role={feedback.type === 'error' ? 'alert' : 'status'}
+            className={feedback.type === 'error' ? 'text-sm text-red-400' : 'text-sm text-emerald-400'}
+          >
+            {feedback.text}
+          </p>
+        )}
+
         <button
           type="submit"
-          className="w-full sm:w-auto bg-white text-black font-semibold px-8 py-3 rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer"
+          disabled={isSending}
+          className="w-full sm:w-auto bg-white text-black font-semibold px-8 py-3 rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer disabled:cursor-wait disabled:opacity-60"
         >
-          Enviar mensaje
+          {isSending ? 'Enviando...' : 'Enviar mensaje'}
         </button>
       </form>
     </div>

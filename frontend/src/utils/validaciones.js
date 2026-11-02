@@ -4,5 +4,5 @@ export const esTextoValido = (texto) => {
 
 export const esEmailValido = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return regex.test(email)
+  return typeof email === 'string' && regex.test(email.trim())
 }
