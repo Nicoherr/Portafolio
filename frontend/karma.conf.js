@@ -1,10 +1,9 @@
 export default function (config) {
   config.set({
-    frameworks: ['jasmine', 'vite'],
+    frameworks: ['vite', 'jasmine'],
 
     files: [
-      { pattern: 'src/**/*.spec.js', type: 'module', nocache: true },
-      { pattern: 'src/**/*.spec.jsx', type: 'module', nocache: true }
+      { pattern: 'src/**/*.spec.js', type: 'module', watched: false, served: false }
     ],
 
     plugins: [
