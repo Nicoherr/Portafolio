@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { esEmailValido, esTextoValido } from '../utils/validaciones.js'
 
-const API_URL = import.meta.env.VITE_API_URL || ''
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || ''
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || ''
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ''
 
 export default function Contacto() {
   const [isSending, setIsSending] = useState(false)
@@ -23,29 +26,42 @@ export default function Contacto() {
       return
     }
 
+    if (contact.website.trim()) {
+      setFeedback({ type: 'error', text: 'No se pudo enviar el mensaje.' })
+      return
+    }
+
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      setFeedback({
+        type: 'error',
+        text: 'La configuración de EmailJS aún no está lista. Revisa las variables de entorno.',
+      })
+      return
+    }
+
     setIsSending(true)
     setFeedback(null)
 
     try {
-      const response = await fetch(`${API_URL}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contact),
-      })
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.error || 'No se pudo enviar el mensaje.')
-      }
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: contact.name,
+          reply_to: contact.email,
+          message: contact.message,
+        },
+        EMAILJS_PUBLIC_KEY,
+      )
 
       form.reset()
-      setFeedback({ type: 'success', text: result.message })
+      setFeedback({ type: 'success', text: 'Mensaje enviado correctamente.' })
     } catch (error) {
       setFeedback({
         type: 'error',
         text: error instanceof Error
           ? error.message
-          : 'No se pudo conectar con el servidor. Inténtalo nuevamente.',
+          : 'No se pudo enviar el mensaje. Inténtalo nuevamente.',
       })
     } finally {
       setIsSending(false)
