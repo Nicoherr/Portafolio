@@ -3,58 +3,44 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
-    // Contenedor principal con ancho máximo (max-w-5xl), centrado (mx-auto), relleno (px-6 py-12) y espacio entre secciones (space-y-16)
-    <div className="max-w-5xl mx-auto px-6 py-12 space-y-16">
-      
-      {/* ================= HERO SECTION (PRESENTACIÓN) ================= */}
-      {/* Contenedor flexible que cambia de columna a fila en pantallas medianas (md:flex-row) */}
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-14 sm:space-y-16">
       <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 py-4">
-        
-        {/* Columna izquierda: Textos de presentación */}
-        <div className="space-y-4 text-center md:text-left md:w-2/3">
-          
-          {/* Etiqueta superior (Badge) con estilo plomo/gris */}
-          <div className="inline-block bg-zinc-800 text-zinc-200 border border-zinc-700 px-3 py-1 rounded-md text-xs font-semibold tracking-wide uppercase">
+        <div className="space-y-5 text-center md:text-left md:w-2/3">
+          <div className="inline-block bg-zinc-800/90 text-zinc-200 border border-zinc-700 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.18em] uppercase shadow-lg shadow-zinc-950/30">
             Estudiante de Ingeniería Informática (IA)
           </div>
 
-          {/* Título principal en blanco y fuente grande */}
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
             Nicolás Herrera Labra
           </h1>
 
-          {/* Descripción personal con color de texto gris claro (zinc-300) */}
-          <p className="text-lg text-zinc-300 leading-relaxed">
+          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-xl">
             Estudiante de Ingeniería Informática mención Inteligencia Artificial en Duoc UC. Apasionado por el desarrollo backend, la ciencia de datos, la ciberseguridad y la resolución eficiente de problemas.
           </p>
 
-          {/* Botones de acción (Call to Action) */}
           <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-            {/* Botón principal blanco con texto negro */}
             <Link 
               to="/proyectos" 
-              className="bg-white text-black hover:bg-zinc-200 font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="bg-white text-black hover:bg-zinc-200 font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg shadow-white/10 hover:-translate-y-0.5"
             >
               Ver Proyectos
             </Link>
 
-            {/* Botón secundario oscuro con borde plomo */}
             <Link 
               to="/contacto" 
-              className="bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 font-medium px-6 py-3 rounded-lg transition-colors"
+              className="bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 font-medium px-6 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5"
             >
               Contacto
             </Link>
           </div>
         </div>
 
-        {/* Columna derecha: Foto de perfil cuadrada con esquinas suavizadas (rounded-2xl) */}
-        <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-2xl border-2 border-zinc-700 bg-zinc-800 flex-shrink-0">
+        <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden shadow-2xl border-2 border-zinc-700 bg-zinc-800 flex-shrink-0 ring-1 ring-white/10">
+          <div className="absolute inset-0 bg-gradient-to-br from-zinc-700/20 to-transparent" />
           <img 
             src="/perfil.jpg" 
             alt="Nicolás Herrera Labra" 
             className="w-full h-full object-cover"
-            // Manejo de error si la imagen aún no está subida a public/
             onError={(e) => {
               e.target.src = 'https://via.placeholder.com/250/27272a/ffffff?text=Nicolas'
             }}
@@ -110,7 +96,7 @@ export default function Home() {
             { titulo: 'Control de Versiones & Deploy', desc: 'Git, GitHub y despliegues de aplicaciones.' },
             { titulo: 'Metodologías Ágiles', desc: 'Trabajo con frameworks ágiles y documentación.' }
           ].map((item, idx) => (
-            <div key={idx} className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl space-y-1 hover:border-zinc-700 transition-colors">
+            <div key={idx} className="bg-zinc-900/80 border border-zinc-800 p-4 rounded-xl space-y-1 hover:border-zinc-700 transition-colors shadow-sm shadow-black/20">
               <h3 className="font-semibold text-white text-sm">{item.titulo}</h3>
               <p className="text-xs text-zinc-400">{item.desc}</p>
             </div>
@@ -127,7 +113,7 @@ export default function Home() {
         {/* Contenedor con envoltorio automático de etiquetas (flex-wrap) */}
         <div className="flex flex-wrap gap-3">
           {['Trabajo bajo presión', 'Paciencia y eficiencia', 'Empatía', 'Trabajo en equipo', 'Atención al cliente', 'Resolución de conflictos'].map((skill, index) => (
-            <span key={index} className="bg-zinc-900 border border-zinc-800 text-zinc-200 px-4 py-2 rounded-lg text-sm font-medium">
+            <span key={index} className="bg-zinc-900 border border-zinc-800 text-zinc-200 px-4 py-2 rounded-lg text-sm font-medium shadow-sm shadow-black/20">
               {skill}
             </span>
           ))}
@@ -142,8 +128,8 @@ export default function Home() {
 
         <div className="space-y-6">
           {/* Item 1 */}
-          <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl space-y-2">
-            <div className="flex flex-col md:flex-row md:items-center justify-between">
+          <div className="bg-zinc-900/80 border border-zinc-800 p-6 rounded-xl space-y-2 shadow-sm shadow-black/20">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
               <h3 className="text-lg font-bold text-white">Garzón — Restaurant La Caracola Lodge</h3>
               <span className="text-xs text-zinc-400 font-semibold">Feb 2025 - Feb 2026</span>
             </div>
@@ -153,8 +139,8 @@ export default function Home() {
           </div>
 
           {/* Item 2 */}
-          <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl space-y-2">
-            <div className="flex flex-col md:flex-row md:items-center justify-between">
+          <div className="bg-zinc-900/80 border border-zinc-800 p-6 rounded-xl space-y-2 shadow-sm shadow-black/20">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
               <h3 className="text-lg font-bold text-white">Pizzero — Melt Pizzas & Under Pizza</h3>
               <span className="text-xs text-zinc-400 font-semibold">2023 - 2024</span>
             </div>
@@ -164,8 +150,8 @@ export default function Home() {
           </div>
 
           {/* Item 3 */}
-          <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl space-y-2">
-            <div className="flex flex-col md:flex-row md:items-center justify-between">
+          <div className="bg-zinc-900/80 border border-zinc-800 p-6 rounded-xl space-y-2 shadow-sm shadow-black/20">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
               <h3 className="text-lg font-bold text-white">Garzón — Restaurant Quintay Cocina</h3>
               <span className="text-xs text-zinc-400 font-semibold">2021 - 2023</span>
             </div>
