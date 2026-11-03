@@ -1,0 +1,11 @@
+{
+  "name": "portafolio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev -- --host 0.0.0.0",
+    "build": "npm --prefix frontend run build",
+    "test": "npm --prefix frontend run test -- --watch=false --browsers=ChromeHeadless",
+    "lint": "npm --prefix frontend run lint"
+  }
+}

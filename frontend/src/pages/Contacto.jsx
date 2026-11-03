@@ -98,7 +98,7 @@ export default function Contacto() {
 
         <div className="hidden" aria-hidden="true">
           <label htmlFor="website">No rellenes este campo</label>
-          <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+          <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
         </div>
 
         {/* Campo: Nombre */}
